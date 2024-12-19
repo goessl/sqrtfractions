@@ -15,7 +15,6 @@ setup(
     author_email = 'goessl@student.tugraz.at',
     license = 'MIT',
     
-    py_modules = ['sqrtfractions'],
     url = 'https://github.com/goessl/sqrtfractions',
     python_requires = '>=3.12',
     install_requires = ['sympy'],
