@@ -54,18 +54,6 @@ def test_sumofsqrts_add():
         assert isclose(actual, float(prediction0), float(prediction1)) \
                 and prediction0.validate() and prediction1.validate()
 
-def test_sumofsqrts_iadd():
-    for _ in range(1000):
-        a, b = SumOfSqrts.random(), SumOfSqrts.random()
-        actual = a + b
-        a += b
-        assert isclose(actual, float(a)) and a.validate()
-        
-        a, b = SumOfSqrts.random(), randint(-20, +20)
-        actual = a + b
-        a += b
-        assert isclose(actual, float(a)) and a.validate()
-
 def test_sumofsqrts_sub():
     for _ in range(1000):
         a, b = SumOfSqrts.random(), SumOfSqrts.random()
@@ -93,18 +81,6 @@ def test_sumofsqrts_mul():
         prediction1 = b * a
         assert isclose(actual, prediction0, prediction1) \
                 and prediction0.validate() and prediction1.validate()
-
-def test_sumofsqrts_imul():
-    for _ in range(1000):
-        a, b = SumOfSqrts.random(), SumOfSqrts.random()
-        actual = a * b
-        a *= b
-        assert isclose(actual, float(a)) and a.validate()
-        
-        a, b = SumOfSqrts.random(), randint(-20, +20)
-        actual = a * b
-        a *= b
-        assert isclose(actual, float(a)) and a.validate()
 
 def test_sumofsqrts_pow():
     for _ in range(10):

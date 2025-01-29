@@ -148,52 +148,24 @@ class SumOfSqrts:
         return NotImplemented
     __radd__ = __add__
     
-    def __iadd__(self, other:Any) -> 'SumOfSqrts': #other:Union['SumOfSqrts', int]
-        if isinstance(other, int):
-            other = SumOfSqrts(other)
-        if isinstance(other, SumOfSqrts):
-            for k, v in other.items():
-                self.n[k] = self.n.get(k, 0) + v
-                if not self.n[k]:
-                    del self.n[k]
-            return self
-        return NotImplemented
-    
-    
     def __sub__(self, other:Any) -> 'SumOfSqrts': #other:Union['SumOfSqrts', int]
         return self + (-other)
     
     def __rsub__(self, other:Any) -> 'SumOfSqrts': #other:int
-        return (-self) + other
-    
-    def __isub__(self, other:Any) -> 'SumOfSqrts': #other:Union['SumOfSqrts', int]
-        self += -other
-        return self
+        return other + (-self)
     
     
     def __mul__(self, other:Any) -> 'SumOfSqrts': #other:Union['SumOfSqrts', int]
+        if isinstance(other, int):
+            other = SumOfSqrts(other)
         if isinstance(other, SumOfSqrts):
             n = defaultdict(int)
             for ki, vi in self.items():
                 for kj, vj in other.items():
                     n[ki*kj] += vi * vj
             return SumOfSqrts(n)
-        elif isinstance(other, int):
-            if not other:
-                return SumOfSqrts()
-            return SumOfSqrts._create_directy({k:v*other for k, v in self.items()})
         return NotImplemented
     __rmul__ = __mul__
-    
-    def __imul__(self, other:Any) -> 'SumOfSqrts': #other:Union['SumOfSqrts', int]
-        if isinstance(other, int):
-            if not other:
-                self.n.clear()
-                return self
-            for k in self.keys():
-                self.n[k] *= other
-            return self
-        return NotImplemented
     
     
     def __floordiv__(self, other:Any) -> 'SumOfSqrts': #other:int
@@ -202,29 +174,10 @@ class SumOfSqrts:
                     {k:v//other for k, v in self.items() if v//other})
         return NotImplemented
     
-    def __ifloordiv__(self, other:Any) -> 'SumOfSqrts': #other:int
-        if isintance(other, int):
-            for k in tuple(self.keys()):
-                self.n[k] //= other
-                if not self.n[k]:
-                    del self.n[k]
-            return self
-        return NotImplemented
-    
-    
     def __mod__(self, other:Any) -> 'SumOfSqrts': #other:int
         if isintance(other, int):
             return SumOfSqrts._create_directy(
                     {k:v%other for k, v in self.items() if v%other})
-        return NotImplemented
-    
-    def __imod__(self, other:Any) -> 'SumOfSqrts': #other:int
-        if isintance(other, int):
-            for k in tuple(self.keys()):
-                self.n[k] %= other
-                if not self.n[k]:
-                    del self.n[k]
-            return self
         return NotImplemented
     
     
